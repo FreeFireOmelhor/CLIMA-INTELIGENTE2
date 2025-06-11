@@ -131,3 +131,136 @@ app.listen(PORT, () => {
         console.warn("ATENÇÃO: OPENWEATHER_API_KEY NÃO está configurada. O proxy da OpenWeatherMap não funcionará.");
     }
 });
+
+require('dotenv').config();
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(express.json());
+
+// Dados simulados em memória
+const veiculos = [
+    { placa: "ABC1D23", tipo: "MOTO", modelo: "Honda CB 500", ano: 2020, proximaRevisao: "2023-12-15" },
+    { placa: "DEF4G56", tipo: "CARRO", modelo: "Volkswagen Gol", ano: 2018, proximaRevisao: "2023-11-20" },
+    { placa: "GHI7J89", tipo: "CARRO_ESPORTIVO", modelo: "Porsche 911", ano: 2022, proximaRevisao: "2024-01-10" }
+];
+
+const dicasManutencao = {
+    GERAL: [
+        { id: 1, dica: "Verifique o nível do óleo regularmente", prioridade: "alta" },
+        { id: 2, dica: "Calibre os pneus semanalmente", prioridade: "media" },
+        { id: 3, dica: "Confira o fluido de arrefecimento mensalmente", prioridade: "media" }
+    ],
+    MOTO: [
+        { id: 4, dica: "Lubrifique a corrente a cada 500km", prioridade: "alta" },
+        { id: 5, dica: "Verifique a pressão dos pneus antes de viagens longas", prioridade: "alta" }
+    ],
+    CARRO: [
+        { id: 6, dica: "Faça o rodízio dos pneus a cada 10.000km", prioridade: "media" },
+        { id: 7, dica: "Substitua o filtro de ar anualmente", prioridade: "baixa" }
+    ],
+    CARRO_ESPORTIVO: [
+        { id: 8, dica: "Verifique o sistema de suspensão regularmente", prioridade: "alta" },
+        { id: 9, dica: "Troque o óleo com frequência maior devido ao alto desempenho", prioridade: "alta" }
+    ]
+};
+
+const viagensPopulares = [
+    { id: 1, destino: "Serra Gaúcha", distancia: 120, melhorEpoca: "Abril a Novembro" },
+    { id: 2, destino: "Florianópolis", distancia: 180, melhorEpoca: "Verão" },
+    { id: 3, destino: "Gramado", distancia: 115, melhorEpoca: "Junho a Agosto" }
+];
+
+// Endpoint para previsão do tempo (existente)
+app.get('/api/clima/:cidade', async (req, res) => {
+    try {
+        const { cidade } = req.params;
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${process.env.OPENWEATHER_API_KEY}&units=metric&lang=pt`);
+        
+        const climaData = {
+            temperatura: response.data.main.temp,
+            condicao: response.data.weather[0].main,
+            descricao: response.data.weather[0].description,
+            umidade: response.data.main.humidity,
+            vento: response.data.wind.speed,
+            visibilidade: response.data.visibility / 1000 // convertendo para km
+        };
+        
+        res.json(climaData);
+    } catch (error) {
+        console.error("Erro na API de clima:", error.message);
+        res.status(500).json({ error: "Erro ao obter dados climáticos" });
+    }
+});
+
+// Novos endpoints
+app.get('/api/dicas-manutencao', (req, res) => {
+    res.json({
+        dicas: dicasManutencao.GERAL,
+        mensagem: "Dicas gerais de manutenção para todos os veículos"
+    });
+});
+
+app.get('/api/dicas-manutencao/:tipoVeiculo', (req, res) => {
+    const { tipoVeiculo } = req.params;
+    const tipoFormatado = tipoVeiculo.toUpperCase();
+    
+    if (dicasManutencao[tipoFormatado]) {
+        res.json({
+            dicas: [...dicasManutencao.GERAL, ...dicasManutencao[tipoFormatado]],
+            mensagem: `Dicas específicas para ${tipoFormatado.replace('_', ' ')}`
+        });
+    } else {
+        res.status(404).json({ 
+            error: "Tipo de veículo não encontrado",
+            tiposDisponiveis: ["MOTO", "CARRO", "CARRO_ESPORTIVO"] 
+        });
+    }
+});
+
+app.get('/api/veiculos/:placa/proxima-revisao', (req, res) => {
+    const { placa } = req.params;
+    const veiculo = veiculos.find(v => v.placa === placa);
+    
+    if (veiculo) {
+        res.json({
+            placa: veiculo.placa,
+            modelo: veiculo.modelo,
+            proximaRevisao: veiculo.proximaRevisao,
+            diasRestantes: Math.floor((new Date(veiculo.proximaRevisao) - new Date()) / (1000 * 60 * 60 * 24))
+        });
+    } else {
+        res.status(404).json({ error: "Veículo não encontrado" });
+    }
+});
+
+app.get('/api/viagens-populares', (req, res) => {
+    const { limite } = req.query;
+    let viagens = [...viagensPopulares];
+    
+    if (limite && !isNaN(limite)) {
+        viagens = viagens.slice(0, parseInt(limite));
+    }
+    
+    res.json(viagens);
+});
+
+// Endpoint para obter todos os veículos
+app.get('/api/veiculos', (req, res) => {
+    res.json(veiculos);
+});
+
+// Middleware para tratamento de erros
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: "Algo deu errado no servidor!" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
