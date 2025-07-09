@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem Inteligente Completa</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Garagem Inteligente</h1>
+        </header>
+
+        <main>
+            <!-- SEÇÃO MEUS VEÍCULOS -->
+            <section id="vehicle-section" class="widget">
+                <h2>Meus Veículos</h2>
+                <div id="vehicle-list" class="vehicle-container">
+                    <!-- Veículos serão inseridos aqui pelo JavaScript -->
+                    <!-- Exemplo de card de veículo (será gerado dinamicamente) -->
+                    <!--
+                    <div class="vehicle-card">
+                        <img src="placeholder-sport.png" alt="Carro Esportivo">
+                        <h3>Esportivo Alfa</h3>
+                        <p><strong>Tipo:</strong> Esportivo</p>
+                        <p><strong>Status:</strong> Pronto para uso</p>
+                        <p><strong>Próxima Revisão:</strong> 01/12/2024</p>
+                    </div>
+                    -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO AGENDA DE MANUTENÇÃO -->
+            <section id="maintenance-section" class="widget">
+                <h2>Agenda de Manutenção</h2>
+                <form id="add-maintenance-form">
+                    <div class="form-group">
+                        <label for="maintenance-vehicle">Veículo:</label>
+                        <select id="maintenance-vehicle" required>
+                            <!-- Opções de veículos serão populadas pelo JS -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maintenance-description">Descrição do Serviço:</label>
+                        <input type="text" id="maintenance-description" placeholder="Ex: Troca de óleo, Rodízio de pneus" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maintenance-date">Data Agendada:</label>
+                        <input type="date" id="maintenance-date" required>
+                    </div>
+                    <button type="submit" class="button-primary">Agendar Manutenção</button>
+                </form>
+                <div id="maintenance-list-container">
+                    <h3>Manutenções Agendadas:</h3>
+                    <ul id="maintenance-list">
+                        <!-- Itens de manutenção serão inseridos aqui -->
+                        <!-- Exemplo de item de manutenção (será gerado dinamicamente) -->
+                        <!--
+                        <li class="maintenance-item">
+                            <div>
+                                <strong>Esportivo Alfa:</strong> Troca de óleo - <em>15/11/2023</em>
+                            </div>
+                            <button class="complete-btn">Concluir</button>
+                        </li>
+                        <li class="maintenance-item completed">
+                            <div>
+                                <strong>Caminhão Beta:</strong> Revisão geral - <em>10/10/2023</em> (Concluído)
+                            </div>
+                            <button class="complete-btn">Refazer</button>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SEÇÃO PREVISÃO DO TEMPO AVANÇADA (mantida do código anterior) -->
+            <section id="weather-section" class="widget">
+                <h2>Previsão do Tempo Avançada</h2>
+                <div class="weather-controls">
+                    <div class="location-input">
+                        <input type="text" id="city-input" placeholder="Cidade para previsão detalhada">
+                        <button id="fetch-weather-btn">Buscar Previsão</button>
+                    </div>
+                    <div class="forecast-options">
+                        <label for="forecast-days-selector">Mostrar previsão para:</label>
+                        <select id="forecast-days-selector">
+                            <option value="1">1 Dia</option>
+                            <option value="3" selected>3 Dias</option>
+                            <option value="5">5 Dias</option>
+                        </select>
+                        <label for="temperature-unit-selector">Unidade:</label>
+                        <select id="temperature-unit-selector">
+                            <option value="metric">Celsius (°C)</option>
+                            <option value="imperial">Fahrenheit (°F)</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="weather-info">
+                    <p id="loading-weather" style="display: none;">Carregando dados da previsão...</p>
+                    <p id="weather-error" class="error-message" style="display: none;"></p>
+                    <div id="forecast-container"></div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO CONSULTA RÁPIDA DO TEMPO (mantida do código anterior) -->
+            <section id="quick-weather-search-section" class="widget">
+                <h2>Consulta Rápida do Tempo Atual</h2>
+                <div class="location-input">
+                    <input type="text" id="quick-city-input" placeholder="Digite uma cidade">
+                    <button id="quick-fetch-weather-btn">Ver Tempo Atual</button>
+                </div>
+                <div id="quick-weather-info">
+                    <p id="quick-loading-weather" style="display: none;">Carregando...</p>
+                    <p id="quick-weather-error" class="error-message" style="display: none;"></p>
+                    <div id="quick-weather-details" style="display: none;">
+                        <h3 id="quick-city-name"></h3>
+                        <div class="weather-main">
+                            <img id="quick-weather-icon" src="" alt="Ícone do Tempo">
+                            <p id="quick-temperature"></p>
+                        </div>
+                        <p id="quick-weather-description"></p>
+                        <p id="quick-humidity"></p>
+                        <p id="quick-wind-speed"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modal para Detalhes do Dia (mantido do código anterior) -->
+            <div id="day-details-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal-btn">×</span>
+                    <h3 id="modal-date"></h3>
+                    <p id="modal-humidity"></p>
+                    <p id="modal-wind"></p>
+                    <p id="modal-description"></p>
+                </div>
+            </div>
+
+            <!-- SEÇÃO CONTROLE DA GARAGEM (mantida do código anterior) -->
+            <section id="garage-controls" class="widget">
+                <h2>Controle da Garagem</h2>
+                <div class="control">
+                    <p>Portão: <span id="door-status">Fechado</span></p>
+                    <button id="toggle-door-btn">Abrir Portão</button>
+                </div>
+                <div class="control">
+                    <p>Luzes Internas: <span id="lights-status">Apagadas</span></p>
+                    <button id="toggle-lights-btn">Acender Luzes</button>
+                </div>
+            </section>
+
+            <!-- SEÇÃO PREFERÊNCIAS DA INTERFACE (mantida do código anterior) -->
+            <section id="user-preferences" class="widget">
+                <h2>Preferências da Interface</h2>
+                <div class="control">
+                    <label for="theme-selector">Tema:</label>
+                    <select id="theme-selector">
+                        <option value="light">Claro</option>
+                        <option value="dark">Escuro</option>
+                    </select>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2023 Garagem Inteligente Completa. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
+</head>
+<body>
+    <div class="container py-4">
+        <header class="mb-4">
+            <h1 class="text-center">Garagem Inteligente</h1>
+            <div class="text-center" id="clima-info">Carregando dados climáticos...</div>
+        </header>
+
+        <div class="row">
+            <!-- Seção de Dicas de Manutenção -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Dicas de Manutenção</h2>
+                        <div class="btn-group">
+                            <button id="btn-dicas-gerais" class="btn btn-sm btn-outline-primary">Gerais</button>
+                            <button id="btn-dicas-moto" class="btn btn-sm btn-outline-secondary">Moto</button>
+                            <button id="btn-dicas-carro" class="btn btn-sm btn-outline-success">Carro</button>
+                            <button id="btn-dicas-esportivo" class="btn btn-sm btn-outline-danger">Esportivo</button>
+                        </div>
+                    </div>
+                    <div class="card-body" id="dicas-section">
+                        Carregando dicas de manutenção...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Próxima Revisão -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Próxima Revisão</h2>
+                    </div>
+                    <div class="card-body" id="revisao-section">
+                        Selecione um veículo para ver a próxima revisão
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Viagens Populares -->
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Viagens Populares</h2>
+                        <button id="btn-todas-viagens" class="btn btn-sm btn-outline-primary">
+                            Ver Todas
+                        </button>
+                    </div>
+                    <div class="card-body" id="viagens-section">
+                        Carregando destinos populares...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
