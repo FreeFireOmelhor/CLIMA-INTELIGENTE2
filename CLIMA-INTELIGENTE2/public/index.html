@@ -4,35 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garagem Inteligente Completa</title>
+    
+    <!-- Estilo principal da aplicação -->
     <link rel="stylesheet" href="CSS/style.css">
-    <script src="script.js" defer></script>
+    
+    <!-- Bootstrap CSS para os novos widgets (das seções de dicas, revisão, etc.) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
     <div class="app-container">
         <header>
             <h1>Garagem Inteligente</h1>
         </header>
 
         <main>
-            <!-- SEÇÃO MEUS VEÍCULOS -->
+            <!-- SEÇÃO MEUS VEÍCULOS (do código original) -->
             <section id="vehicle-section" class="widget">
                 <h2>Meus Veículos</h2>
                 <div id="vehicle-list" class="vehicle-container">
                     <!-- Veículos serão inseridos aqui pelo JavaScript -->
-                    <!-- Exemplo de card de veículo (será gerado dinamicamente) -->
-                    <!--
-                    <div class="vehicle-card">
-                        <img src="placeholder-sport.png" alt="Carro Esportivo">
-                        <h3>Esportivo Alfa</h3>
-                        <p><strong>Tipo:</strong> Esportivo</p>
-                        <p><strong>Status:</strong> Pronto para uso</p>
-                        <p><strong>Próxima Revisão:</strong> 01/12/2024</p>
-                    </div>
-                    -->
                 </div>
             </section>
 
-            <!-- SEÇÃO AGENDA DE MANUTENÇÃO -->
+            <!-- SEÇÃO AGENDA DE MANUTENÇÃO (do código original) -->
             <section id="maintenance-section" class="widget">
                 <h2>Agenda de Manutenção</h2>
                 <form id="add-maintenance-form">
@@ -56,26 +51,56 @@
                     <h3>Manutenções Agendadas:</h3>
                     <ul id="maintenance-list">
                         <!-- Itens de manutenção serão inseridos aqui -->
-                        <!-- Exemplo de item de manutenção (será gerado dinamicamente) -->
-                        <!--
-                        <li class="maintenance-item">
-                            <div>
-                                <strong>Esportivo Alfa:</strong> Troca de óleo - <em>15/11/2023</em>
-                            </div>
-                            <button class="complete-btn">Concluir</button>
-                        </li>
-                        <li class="maintenance-item completed">
-                            <div>
-                                <strong>Caminhão Beta:</strong> Revisão geral - <em>10/10/2023</em> (Concluído)
-                            </div>
-                            <button class="complete-btn">Refazer</button>
-                        </li>
-                        -->
                     </ul>
                 </div>
             </section>
 
-            <!-- SEÇÃO PREVISÃO DO TEMPO AVANÇADA (mantida do código anterior) -->
+            <!-- SEÇÃO DICAS DE MANUTENÇÃO (integrada) -->
+            <section class="widget">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Dicas de Manutenção</h2>
+                        <div class="btn-group">
+                            <button id="btn-dicas-gerais" class="btn btn-sm btn-outline-primary">Gerais</button>
+                            <button id="btn-dicas-moto" class="btn btn-sm btn-outline-secondary">Moto</button>
+                            <button id="btn-dicas-carro" class="btn btn-sm btn-outline-success">Carro</button>
+                            <button id="btn-dicas-esportivo" class="btn btn-sm btn-outline-danger">Esportivo</button>
+                        </div>
+                    </div>
+                    <div class="card-body" id="dicas-section">
+                        Carregando dicas de manutenção...
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO PRÓXIMA REVISÃO (integrada) -->
+            <section class="widget">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Próxima Revisão</h2>
+                    </div>
+                    <div class="card-body" id="revisao-section">
+                        Selecione um veículo para ver a próxima revisão
+                    </div>
+                </div>
+            </section>
+
+             <!-- SEÇÃO VIAGENS POPULARES (integrada) -->
+             <section class="widget">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Viagens Populares</h2>
+                        <button id="btn-todas-viagens" class="btn btn-sm btn-outline-primary">
+                            Ver Todas
+                        </button>
+                    </div>
+                    <div class="card-body" id="viagens-section">
+                        Carregando destinos populares...
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO PREVISÃO DO TEMPO AVANÇADA (do código original) -->
             <section id="weather-section" class="widget">
                 <h2>Previsão do Tempo Avançada</h2>
                 <div class="weather-controls">
@@ -104,7 +129,7 @@
                 </div>
             </section>
 
-            <!-- SEÇÃO CONSULTA RÁPIDA DO TEMPO (mantida do código anterior) -->
+            <!-- SEÇÃO CONSULTA RÁPIDA DO TEMPO (do código original) -->
             <section id="quick-weather-search-section" class="widget">
                 <h2>Consulta Rápida do Tempo Atual</h2>
                 <div class="location-input">
@@ -127,18 +152,7 @@
                 </div>
             </section>
 
-            <!-- Modal para Detalhes do Dia (mantido do código anterior) -->
-            <div id="day-details-modal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <span class="close-modal-btn">×</span>
-                    <h3 id="modal-date"></h3>
-                    <p id="modal-humidity"></p>
-                    <p id="modal-wind"></p>
-                    <p id="modal-description"></p>
-                </div>
-            </div>
-
-            <!-- SEÇÃO CONTROLE DA GARAGEM (mantida do código anterior) -->
+            <!-- SEÇÃO CONTROLE DA GARAGEM (do código original) -->
             <section id="garage-controls" class="widget">
                 <h2>Controle da Garagem</h2>
                 <div class="control">
@@ -146,12 +160,12 @@
                     <button id="toggle-door-btn">Abrir Portão</button>
                 </div>
                 <div class="control">
-                    <p>Luzes Internas: <span id="lights-status">Apagadas</span></p>
-                    <button id="toggle-lights-btn">Acender Luzes</button>
+                    <p>Garagem: <span id="lights-status">Apagadas</span></p>
+                    <button id="toggle-lights-btn">Abrir Garagem</button>
                 </div>
             </section>
 
-            <!-- SEÇÃO PREFERÊNCIAS DA INTERFACE (mantida do código anterior) -->
+            <!-- SEÇÃO PREFERÊNCIAS DA INTERFACE (do código original) -->
             <section id="user-preferences" class="widget">
                 <h2>Preferências da Interface</h2>
                 <div class="control">
@@ -168,8 +182,21 @@
             <p>© 2023 Garagem Inteligente Completa. Todos os direitos reservados.</p>
         </footer>
     </div>
+
+    <!-- Modal para Detalhes do Dia (do código original) -->
+    <div id="day-details-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal-btn">×</span>
+            <h3 id="modal-date"></h3>
+            <p id="modal-humidity"></p>
+            <p id="modal-wind"></p>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+    <script src="client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-</head>
-<body>
-
