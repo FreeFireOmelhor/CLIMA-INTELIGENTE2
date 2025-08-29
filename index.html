@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIGA GARAGE - Onde seu carro vira uma lenda</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ======== ÁREA DE LOGIN ======== -->
+    <div id="login-page" class="page active">
+        <div class="page-content">
+            <h1>GIGA GARAGE</h1>
+            <p class="slogan">PROVE SEU VALOR. ENTRE NO CLÃ.</p>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="SEU NOME DE GIGA" required>
+                <input type="password" id="password" placeholder="SENHA SECRETA (só para constar)">
+                <button type="submit">ACESSAR MEU LEGADO</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======== PAINEL PRINCIPAL (DASHBOARD) ======== -->
+    <div id="dashboard-page" class="page">
+        <header class="dashboard-header">
+            <h2 id="welcome-message">BEM-VINDO, GIGA!</h2>
+            <button id="logout-button">SAIR</button>
+        </header>
+
+        <nav class="dashboard-nav">
+            <button id="nav-schedule" class="nav-button active">AGENDAMENTO</button>
+            <button id="nav-vehicles" class="nav-button">GERENCIAR MÁQUINAS</button>
+            <button id="nav-giga-pedia" class="nav-button">GIGA-PÉDIA</button>
+        </nav>
+
+        <!-- SEÇÃO DE AGENDAMENTO -->
+        <div id="schedule-section" class="dashboard-section active">
+            <h3>FORJE SEU AGENDAMENTO</h3>
+
+            <!-- PASSO 1 -->
+            <h4>PASSO 1: SELECIONE SUA MÁQUINA</h4>
+            <div class="vehicle-selector">
+                <select id="vehicle-select">
+                    <!-- Opções de veículos serão carregadas dinamicamente aqui -->
+                    <option value="">Selecione uma máquina</option>
+                </select>
+            </div>
+            <img id="vehicle-image" src="img/default-vehicle.jpg" alt="Veículo Selecionado">
+
+            <!-- PASSO 2 -->
+            <h4>PASSO 2: ESCOLHA SUAS ARMAS (SERVIÇOS)</h4>
+            <div id="services-list" class="services-grid">
+                <label><input type="checkbox" name="service" value="Troca de Pneu"> Troca de Pneu "Garra de Adamantium"</label>
+                <label><input type="checkbox" name="service" value="Troca de Óleo"> Troca de Óleo "Sangue dos Deuses"</label>
+                <label><input type="checkbox" name="service" value="Check-up"> Check-up "Visão de Odin"</label>
+                <label><input type="checkbox" name="service" value="Alinhamento"> Alinhamento "Precisão Cirúrgica"</label>
+                <label><input type="checkbox" name="service" value="Upgrade de Performance"> Upgrade "Modo Fúria"</label>
+                <label><input type="checkbox" name="service" value="Estética"> Estética "Armadura de Batalha"</label>
+            </div>
+
+            <!-- PASSO 3 -->
+            <h4>PASSO 3: MARQUE O DIA DO JULGAMENTO</h4>
+            <input type="date" id="schedule-date">
+
+            <button id="submit-schedule-button">CONFIRMAR E LIBERAR A FERA</button>
+
+            <hr style="margin-top: 40px; border-color: var(--giga-light-gray);">
+
+            <!-- SEÇÃO DE HISTÓRICO DE MANUTENÇÕES (NOVA) -->
+            <h4>HISTÓRICO DE MANUTENÇÕES DA MÁQUINA</h4>
+            <div id="maintenance-history">
+                <p>Selecione um veículo para ver seu histórico de manutenções.</p>
+            </div>
+
+            <!-- SEÇÃO DE AGENDAMENTOS FUTUROS (ATUALIZADA) -->
+            <h4>PRÓXIMOS AGENDAMENTOS</h4>
+            <div id="appointments-list">
+                <p>Buscando agendamentos forjados...</p>
+            </div>
+        </div>
+
+        <!-- NEW SECTION: GERENCIAR MÁQUINAS -->
+        <div id="vehicles-section" class="dashboard-section">
+            <h3>GERENCIAR MINHAS MÁQUINAS</h3>
+            <h4>ADICIONAR NOVA MÁQUINA</h4>
+            <div class="page-content">
+                <input type="text" id="new-vehicle-brand" placeholder="MARCA (Ex: Dodge)" required>
+                <input type="text" id="new-vehicle-model" placeholder="MODELO (Ex: Challenger)" required>
+                <input type="text" id="new-vehicle-plate" placeholder="PLACA (Ex: GIGA007)" maxlength="8" required>
+                <input type="text" id="new-vehicle-image-url" placeholder="URL DA IMAGEM (Opcional)">
+                <button id="add-vehicle-button">ADICIONAR MÁQUINA</button>
+            </div>
+
+            <h4>MINHAS MÁQUINAS CADASTRADAS</h4>
+            <div id="my-vehicles-list" class="services-grid" style="grid-template-columns: 1fr;">
+                <p>Carregando máquinas...</p>
+                <!-- Lista de veículos será carregada aqui -->
+            </div>
+        </div>
+
+        <!-- SEÇÃO GIGA-PÉDIA -->
+        <div id="giga-pedia-section" class="dashboard-section">
+            <h3>GIGA-PÉDIA: O ORÁCULO AUTOMOTIVO</h3>
+            <p>Conhecimento é poder. Aniquile suas dúvidas.</p>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Pesquise por carro, peça, problema...">
+                <button id="search-button">PESQUISAR</button>
+            </div>
+            <div id="search-results">
+                <!-- Resultados da busca aparecerão aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
