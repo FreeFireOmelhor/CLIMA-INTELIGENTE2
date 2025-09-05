@@ -3,119 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIGA GARAGE - Onde seu carro vira uma lenda</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <title>GARAGEM DOS ALFAS</title>
+    
+    <!-- Estilo principal da aplicação -->
+    <link rel="stylesheet" href="CSS/style.css">
+    
+    <!-- Bootstrap CSS para os novos widgets (das seções de dicas, revisão, etc.) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ======== ÁREA DE LOGIN ======== -->
-    <div id="login-page" class="page active">
-        <div class="page-content">
-            <h1>GIGA GARAGE</h1>
-            <p class="slogan">PROVE SEU VALOR. ENTRE NO CLÃ.</p>
-            <form id="login-form">
-                <input type="text" id="username" placeholder="SEU NOME DE GIGA" required>
-                <input type="password" id="password" placeholder="SENHA SECRETA (só para constar)">
-                <button type="submit">ACESSAR MEU LEGADO</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ======== PAINEL PRINCIPAL (DASHBOARD) ======== -->
-    <div id="dashboard-page" class="page">
-        <header class="dashboard-header">
-            <h2 id="welcome-message">BEM-VINDO, GIGA!</h2>
-            <button id="logout-button">SAIR</button>
+    <div class="app-container">
+        <header>
+            <h1>GARAGEM DOS ALFAS</h1>
         </header>
 
-        <nav class="dashboard-nav">
-            <button id="nav-schedule" class="nav-button active">AGENDAMENTO</button>
-            <button id="nav-vehicles" class="nav-button">GERENCIAR MÁQUINAS</button>
-            <button id="nav-giga-pedia" class="nav-button">GIGA-PÉDIA</button>
-        </nav>
+        <main>
+            <!-- SEÇÃO MEUS VEÍCULOS (do código original) -->
+            <section id="vehicle-section" class="widget">
+                <h2>Meus Veículos</h2>
+                <div id="vehicle-list" class="vehicle-container">
+                    <!-- Veículos serão inseridos aqui pelo JavaScript -->
+                     <section id="vehicle-section" class="widget">
+<section id="vehicle-section" class="widget">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Meus Veículos</h2>
+        <button id="btn-add-vehicle" class="btn btn-primary">Adicionar Veículo</button>
+    </div>
+    <div id="vehicle-list" class="vehicle-container">
+        <!-- Veículos serão inseridos aqui pelo JavaScript -->
+    </div>
+</section>
+                </div>
+            </section>
 
-        <!-- SEÇÃO DE AGENDAMENTO -->
-        <div id="schedule-section" class="dashboard-section active">
-            <h3>FORJE SEU AGENDAMENTO</h3>
+            <!-- SEÇÃO AGENDA DE MANUTENÇÃO (do código original) -->
+            <section id="maintenance-section" class="widget">
+                <h2>Agenda de Manutenção</h2>
+                <form id="add-maintenance-form">
+                    <div class="form-group">
+                        <label for="maintenance-vehicle">Veículo:</label>
+                        <select id="maintenance-vehicle" required>
+                            <!-- Opções de veículos serão populadas pelo JS -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maintenance-description">Descrição do Serviço:</label>
+                        <input type="text" id="maintenance-description" placeholder="Ex: Troca de óleo, Rodízio de pneus" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maintenance-date">Data Agendada:</label>
+                        <input type="date" id="maintenance-date" required>
+                    </div>
+                    <button type="submit" class="button-primary">Agendar Manutenção</button>
+                </form>
+                <div id="maintenance-list-container">
+                    <h3>Manutenções Agendadas:</h3>
+                    <ul id="maintenance-list">
+                        <!-- Itens de manutenção serão inseridos aqui -->
+                    </ul>
+                </div>
+            </section>
 
-            <!-- PASSO 1 -->
-            <h4>PASSO 1: SELECIONE SUA MÁQUINA</h4>
-            <div class="vehicle-selector">
-                <select id="vehicle-select">
-                    <!-- Opções de veículos serão carregadas dinamicamente aqui -->
-                    <option value="">Selecione uma máquina</option>
-                </select>
-            </div>
-            <img id="vehicle-image" src="img/default-vehicle.jpg" alt="Veículo Selecionado">
 
-            <!-- PASSO 2 -->
-            <h4>PASSO 2: ESCOLHA SUAS ARMAS (SERVIÇOS)</h4>
-            <div id="services-list" class="services-grid">
-                <label><input type="checkbox" name="service" value="Troca de Pneu"> Troca de Pneu "Garra de Adamantium"</label>
-                <label><input type="checkbox" name="service" value="Troca de Óleo"> Troca de Óleo "Sangue dos Deuses"</label>
-                <label><input type="checkbox" name="service" value="Check-up"> Check-up "Visão de Odin"</label>
-                <label><input type="checkbox" name="service" value="Alinhamento"> Alinhamento "Precisão Cirúrgica"</label>
-                <label><input type="checkbox" name="service" value="Upgrade de Performance"> Upgrade "Modo Fúria"</label>
-                <label><input type="checkbox" name="service" value="Estética"> Estética "Armadura de Batalha"</label>
-            </div>
+            <!-- SEÇÃO PREVISÃO DO TEMPO AVANÇADA (do código original) -->
+            <section id="weather-section" class="widget">
+                <h2>Previsão do Tempo Avançada</h2>
+                <div class="weather-controls">
+                    <div class="location-input">
+                        <input type="text" id="city-input" placeholder="Cidade para previsão detalhada">
+                        <button id="fetch-weather-btn">Buscar Previsão</button>
+                    </div>
+                    <div class="forecast-options">
+                        <label for="forecast-days-selector">Mostrar previsão para:</label>
+                        <select id="forecast-days-selector">
+                            <option value="1">1 Dia</option>
+                            <option value="3" selected>3 Dias</option>
+                            <option value="5">5 Dias</option>
+                        </select>
+                        <label for="temperature-unit-selector">Unidade:</label>
+                        <select id="temperature-unit-selector">
+                            <option value="metric">Celsius (°C)</option>
+                            <option value="imperial">Fahrenheit (°F)</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="weather-info">
+                    <p id="loading-weather" style="display: none;">Carregando dados da previsão...</p>
+                    <p id="weather-error" class="error-message" style="display: none;"></p>
+                    <div id="forecast-container"></div>
+                </div>
+            </section>
 
-            <!-- PASSO 3 -->
-            <h4>PASSO 3: MARQUE O DIA DO JULGAMENTO</h4>
-            <input type="date" id="schedule-date">
+            <!-- SEÇÃO CONSULTA RÁPIDA DO TEMPO (do código original) -->
+            <section id="quick-weather-search-section" class="widget">
+                <h2>Consulta Rápida do Tempo Atual</h2>
+                <div class="location-input">
+                    <input type="text" id="quick-city-input" placeholder="Digite uma cidade">
+                    <button id="quick-fetch-weather-btn">Ver Tempo Atual</button>
+                </div>
+                <div id="quick-weather-info">
+                    <p id="quick-loading-weather" style="display: none;">Carregando...</p>
+                    <p id="quick-weather-error" class="error-message" style="display: none;"></p>
+                    <div id="quick-weather-details" style="display: none;">
+                        <h3 id="quick-city-name"></h3>
+                        <div class="weather-main">
+                            <img id="quick-weather-icon" src="" alt="Ícone do Tempo">
+                            <p id="quick-temperature"></p>
+                        </div>
+                        <p id="quick-weather-description"></p>
+                        <p id="quick-humidity"></p>
+                        <p id="quick-wind-speed"></p>
+                    </div>
+                </div>
+            </section>
 
-            <button id="submit-schedule-button">CONFIRMAR E LIBERAR A FERA</button>
+            <!-- SEÇÃO CONTROLE DA GARAGEM (do código original) -->
+            <section id="garage-controls" class="widget">
+                <h2>Controle da Garagem</h2>
+                <div class="control">
+                    <p>Portão: <span id="door-status">Fechado</span></p>
+                    <button id="toggle-door-btn">Abrir Portão</button>
+                </div>
+                <div class="control">
+                    <p>Garagem: <span id="lights-status">Fechada</span></p>
+                    <button id="toggle-lights-btn">Aberta</button>
+                </div>
+            </section>
 
-            <hr style="margin-top: 40px; border-color: var(--giga-light-gray);">
+            <!-- SEÇÃO PREFERÊNCIAS DA INTERFACE (do código original) -->
+            <section id="user-preferences" class="widget">
+                <h2>Preferências da Interface</h2>
+                <div class="control">
+                    <label for="theme-selector">Tema:</label>
+                    <select id="theme-selector">
+                        <option value="light">Claro</option>
+                        <option value="dark">Escuro</option>
+                    </select>
+                </div>
+            </section>
+        </main>
 
-            <!-- SEÇÃO DE HISTÓRICO DE MANUTENÇÕES (NOVA) -->
-            <h4>HISTÓRICO DE MANUTENÇÕES DA MÁQUINA</h4>
-            <div id="maintenance-history">
-                <p>Selecione um veículo para ver seu histórico de manutenções.</p>
-            </div>
+        <footer>
+            <p>© 2023 Garagem Inteligente Completa. Todos os direitos reservados.</p>
+        </footer>
+    </div>
 
-            <!-- SEÇÃO DE AGENDAMENTOS FUTUROS (ATUALIZADA) -->
-            <h4>PRÓXIMOS AGENDAMENTOS</h4>
-            <div id="appointments-list">
-                <p>Buscando agendamentos forjados...</p>
-            </div>
-        </div>
-
-        <!-- NEW SECTION: GERENCIAR MÁQUINAS -->
-        <div id="vehicles-section" class="dashboard-section">
-            <h3>GERENCIAR MINHAS MÁQUINAS</h3>
-            <h4>ADICIONAR NOVA MÁQUINA</h4>
-            <div class="page-content">
-                <input type="text" id="new-vehicle-brand" placeholder="MARCA (Ex: Dodge)" required>
-                <input type="text" id="new-vehicle-model" placeholder="MODELO (Ex: Challenger)" required>
-                <input type="text" id="new-vehicle-plate" placeholder="PLACA (Ex: GIGA007)" maxlength="8" required>
-                <input type="text" id="new-vehicle-image-url" placeholder="URL DA IMAGEM (Opcional)">
-                <button id="add-vehicle-button">ADICIONAR MÁQUINA</button>
-            </div>
-
-            <h4>MINHAS MÁQUINAS CADASTRADAS</h4>
-            <div id="my-vehicles-list" class="services-grid" style="grid-template-columns: 1fr;">
-                <p>Carregando máquinas...</p>
-                <!-- Lista de veículos será carregada aqui -->
-            </div>
-        </div>
-
-        <!-- SEÇÃO GIGA-PÉDIA -->
-        <div id="giga-pedia-section" class="dashboard-section">
-            <h3>GIGA-PÉDIA: O ORÁCULO AUTOMOTIVO</h3>
-            <p>Conhecimento é poder. Aniquile suas dúvidas.</p>
-            <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Pesquise por carro, peça, problema...">
-                <button id="search-button">PESQUISAR</button>
-            </div>
-            <div id="search-results">
-                <!-- Resultados da busca aparecerão aqui -->
-            </div>
+    <!-- Modal para Detalhes do Dia (do código original) -->
+    <div id="day-details-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal-btn">×</span>
+            <h3 id="modal-date"></h3>
+            <p id="modal-humidity"></p>
+            <p id="modal-wind"></p>
+            <p id="modal-description"></p>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+    <script src="client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- Adicione este modal no final do seu <body> -->
+<div id="vehicle-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-modal-btn">&times;</span>
+        <h3 id="modal-title">Adicionar Veículo</h3>
+        <form id="vehicle-form">
+            <input type="hidden" id="vehicle-id">
+            <div class="form-group">
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" placeholder="ABC1D23" required>
+            </div>
+            <div class="form-group">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" placeholder="Ex: Honda CB 500" required>
+            </div>
+             <div class="form-group">
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" placeholder="2023" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" required>
+                    <option value="CARRO">Caminhão Z</option>
+                    <option value="MOTO">Sedan X</option>
+                    <option value="CARRO_ESPORTIVO">Carro Esportivo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="proximaRevisao">Próxima Revisão:</label>
+                <input type="date" id="proximaRevisao" required>
+            </div>
+            <button type="submit" class="button-primary">Salvar Veículo</button>
+        </form>
+    </div>
+</div>
 </html>
+
+
+     
