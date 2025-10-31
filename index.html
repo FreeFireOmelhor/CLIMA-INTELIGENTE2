@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GARAGEM DOS ALFAS</title>
+    <title>Garagem Inteligente Completa</title>
     
     <!-- Estilo principal da aplicação -->
     <link rel="stylesheet" href="CSS/style.css">
@@ -15,7 +15,7 @@
 
     <div class="app-container">
         <header>
-            <h1>GARAGEM DOS ALFAS</h1>
+            <h1>Garagem Inteligente</h1>
         </header>
 
         <main>
@@ -24,16 +24,6 @@
                 <h2>Meus Veículos</h2>
                 <div id="vehicle-list" class="vehicle-container">
                     <!-- Veículos serão inseridos aqui pelo JavaScript -->
-                     <section id="vehicle-section" class="widget">
-<section id="vehicle-section" class="widget">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Meus Veículos</h2>
-        <button id="btn-add-vehicle" class="btn btn-primary">Adicionar Veículo</button>
-    </div>
-    <div id="vehicle-list" class="vehicle-container">
-        <!-- Veículos serão inseridos aqui pelo JavaScript -->
-    </div>
-</section>
                 </div>
             </section>
 
@@ -65,6 +55,50 @@
                 </div>
             </section>
 
+            <!-- SEÇÃO DICAS DE MANUTENÇÃO (integrada) -->
+            <section class="widget">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Dicas de Manutenção</h2>
+                        <div class="btn-group">
+                            <button id="btn-dicas-gerais" class="btn btn-sm btn-outline-primary">Gerais</button>
+                            <button id="btn-dicas-moto" class="btn btn-sm btn-outline-secondary">Moto</button>
+                            <button id="btn-dicas-carro" class="btn btn-sm btn-outline-success">Carro</button>
+                            <button id="btn-dicas-esportivo" class="btn btn-sm btn-outline-danger">Esportivo</button>
+                        </div>
+                    </div>
+                    <div class="card-body" id="dicas-section">
+                        Carregando dicas de manutenção...
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO PRÓXIMA REVISÃO (integrada) -->
+            <section class="widget">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">Próxima Revisão</h2>
+                    </div>
+                    <div class="card-body" id="revisao-section">
+                        Selecione um veículo para ver a próxima revisão
+                    </div>
+                </div>
+            </section>
+
+             <!-- SEÇÃO VIAGENS POPULARES (integrada) -->
+             <section class="widget">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Viagens Populares</h2>
+                        <button id="btn-todas-viagens" class="btn btn-sm btn-outline-primary">
+                            Ver Todas
+                        </button>
+                    </div>
+                    <div class="card-body" id="viagens-section">
+                        Carregando destinos populares...
+                    </div>
+                </div>
+            </section>
 
             <!-- SEÇÃO PREVISÃO DO TEMPO AVANÇADA (do código original) -->
             <section id="weather-section" class="widget">
@@ -126,8 +160,8 @@
                     <button id="toggle-door-btn">Abrir Portão</button>
                 </div>
                 <div class="control">
-                    <p>Garagem: <span id="lights-status">Fechada</span></p>
-                    <button id="toggle-lights-btn">Aberta</button>
+                    <p>Garagem: <span id="lights-status">Apagadas</span></p>
+                    <button id="toggle-lights-btn">Abrir Garagem</button>
                 </div>
             </section>
 
@@ -165,42 +199,4 @@
     <script src="client.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- Adicione este modal no final do seu <body> -->
-<div id="vehicle-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close-modal-btn">&times;</span>
-        <h3 id="modal-title">Adicionar Veículo</h3>
-        <form id="vehicle-form">
-            <input type="hidden" id="vehicle-id">
-            <div class="form-group">
-                <label for="placa">Placa:</label>
-                <input type="text" id="placa" placeholder="ABC1D23" required>
-            </div>
-            <div class="form-group">
-                <label for="modelo">Modelo:</label>
-                <input type="text" id="modelo" placeholder="Ex: Honda CB 500" required>
-            </div>
-             <div class="form-group">
-                <label for="ano">Ano:</label>
-                <input type="number" id="ano" placeholder="2023" required>
-            </div>
-            <div class="form-group">
-                <label for="tipo">Tipo:</label>
-                <select id="tipo" required>
-                    <option value="CARRO">Caminhão Z</option>
-                    <option value="MOTO">Sedan X</option>
-                    <option value="CARRO_ESPORTIVO">Carro Esportivo</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="proximaRevisao">Próxima Revisão:</label>
-                <input type="date" id="proximaRevisao" required>
-            </div>
-            <button type="submit" class="button-primary">Salvar Veículo</button>
-        </form>
-    </div>
-</div>
 </html>
-
-
-     

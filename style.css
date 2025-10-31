@@ -1,309 +1,259 @@
-:root {
-    --giga-black: #121212;
-    --giga-dark-gray: #1f1f1f;
-    --giga-light-gray: #333;
-    --giga-gold: #c0a060;
-    --giga-white: #f0f0f0;
-    --giga-red: #d92027;
-}
-
-body, html {
+/* ... (Estilos anteriores para body, temas, app-container, header, widget, etc. mantidos) ... */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 0;
-    font-family: 'Anton', sans-serif;
-    background-color: var(--giga-black);
-    color: var(--giga-white);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-}
-
-.page {
-    display: none;
-    min-height: 100vh;
     padding: 20px;
-    box-sizing: border-box;
-}
-
-.page.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.page-content, .dashboard-section {
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 3px solid var(--giga-gold);
-    padding: 40px;
-    border-radius: 10px;
-    max-width: 800px;
-    width: 90%;
-    text-align: center;
-}
-
-h1 {
-    font-size: 4rem;
-    color: var(--giga-gold);
-    margin: 0;
-}
-
-.slogan {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-input, select {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: var(--giga-light-gray);
-    border: 2px solid var(--giga-dark-gray);
-    color: var(--giga-white);
-    font-size: 1rem;
-    font-family: 'Anton', sans-serif;
-    letter-spacing: 1px;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: var(--giga-gold);
-    color: var(--giga-black);
-    border: none;
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 2px;
-}
-
-button:hover {
-    background-color: var(--giga-white);
-    transform: scale(1.05);
-}
-
-/* --- Dashboard --- */
-#dashboard-page {
-    justify-content: flex-start;
-}
-
-.dashboard-header {
-    width: 100%;
-    max-width: 840px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#logout-button {
-    background-color: var(--giga-red);
-    color: var(--giga-white);
-    font-size: 0.9rem;
-    padding: 10px 20px;
-}
-
-.dashboard-nav {
-    margin-bottom: 20px;
-}
-
-.nav-button {
-    background: none;
-    border: 2px solid var(--giga-light-gray);
-    color: var(--giga-light-gray);
-    margin: 0 10px;
-}
-
-.nav-button.active {
-    border-color: var(--giga-gold);
-    color: var(--giga-gold);
-}
-
-.dashboard-section {
-    display: none;
-}
-
-.dashboard-section.active {
-    display: block;
-}
-
-h3 {
-    font-size: 2.5rem;
-    color: var(--giga-gold);
-}
-
-h4 {
-    font-size: 1.5rem;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--giga-gold);
-    padding-bottom: 5px;
-    display: inline-block;
-}
-
-#vehicle-image {
-    max-width: 100%;
-    height: 250px;
-    object-fit: cover;
-    margin: 10px 0 20px 0;
-    border: 3px solid var(--giga-light-gray);
-    border-radius: 5px;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-.services-grid label {
-    background-color: var(--giga-light-gray);
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-input[type="checkbox"] {
-    width: auto;
-    margin: 0 10px 0 0;
-}
-
-/* --- Giga-Pédia --- */
-.search-container {
-    display: flex;
-    gap: 10px;
-}
-
-#search-results {
-    margin-top: 20px;
-    text-align: left;
-    background-color: var(--giga-dark-gray);
-    padding: 20px;
-    border-radius: 5px;
-    font-size: 1rem;
     line-height: 1.6;
-    min-height: 100px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
 }
-
-/* Adicione este código ao final do seu style.css */
-
-#appointments-list {
-    margin-top: 20px;
-    text-align: left;
+body.light-theme { background-color: #f4f7f6; color: #333; }
+body.dark-theme { background-color: #2c3e50; color: #ecf0f1; }
+body.dark-theme .widget { background-color: #34495e; border-color: #4a6179; }
+body.dark-theme button, body.dark-theme .button-primary { background-color: #3498db; color: #ecf0f1; }
+body.dark-theme button:hover, body.dark-theme .button-primary:hover { background-color: #2980b9; }
+body.dark-theme input[type="text"],
+body.dark-theme input[type="date"],
+body.dark-theme select {
+    background-color: #4a6179; color: #ecf0f1; border-color: #5e7a97;
 }
+body.dark-theme input::placeholder { color: #a0b3c6; }
 
-.appointment-card {
-    background-color: var(--giga-dark-gray);
-    border-left: 5px solid var(--giga-gold);
+.app-container {
+    width: 100%; max-width: 900px; /* Aumentado um pouco para mais conteúdo */
+    background-color: #fff; padding: 25px; border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); transition: background-color 0.3s;
+}
+body.dark-theme .app-container { background-color: #2c3e50; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+header h1 { text-align: center; color: #2c3e50; margin-bottom: 25px; }
+body.dark-theme header h1 { color: #ecf0f1; }
+.widget { background-color: #ffffff; padding: 20px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #e0e0e0; }
+.widget h2 { margin-top: 0; color: #3498db; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 15px; }
+body.dark-theme .widget h2 { color: #5dade2; border-bottom-color: #5dade2; }
+
+/* Estilos para Seção de Veículos */
+.vehicle-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.vehicle-card {
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
     padding: 15px;
-    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+body.dark-theme .vehicle-card {
+    background-color: #4a6179;
+    border-color: #5e7a97;
+}
+.vehicle-card img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.vehicle-card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #333;
+}
+body.dark-theme .vehicle-card h3 { color: #ecf0f1;}
+.vehicle-card p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #555;
+}
+body.dark-theme .vehicle-card p { color: #bdc3c7; }
+.vehicle-card p strong { color: #333; }
+body.dark-theme .vehicle-card p strong { color: #ecf0f1; }
+
+
+/* Estilos para Seção de Manutenção */
+#add-maintenance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1em;
+}
+.button-primary { /* Classe genérica para botões primários */
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease-in-out;
+    align-self: flex-start; /* Para não ocupar largura total */
+}
+.button-primary:hover {
+    background-color: #2980b9;
+}
+
+#maintenance-list-container h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #3498db;
+}
+body.dark-theme #maintenance-list-container h3 { color: #5dade2; }
+
+#maintenance-list {
+    list-style: none;
+    padding: 0;
+}
+.maintenance-item {
+    background-color: #f9f9f9;
+    padding: 12px 15px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.3s;
+}
+body.dark-theme .maintenance-item {
+    background-color: #4a6179;
+    border-color: #5e7a97;
+}
+.maintenance-item div { /* Container para o texto da manutenção */
+    flex-grow: 1;
+}
+.maintenance-item strong {
+    color: #2c3e50;
+}
+body.dark-theme .maintenance-item strong { color: #ecf0f1; }
+.maintenance-item em { /* Data */
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+body.dark-theme .maintenance-item em { color: #95a5a6; }
+
+.maintenance-item.completed {
+    background-color: #e8f5e9; /* Verde claro para concluído */
+    border-left: 5px solid #4caf50;
+}
+body.dark-theme .maintenance-item.completed {
+    background-color: #3b5249;
+    border-left-color: #81c784;
+}
+.maintenance-item.completed div {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+.maintenance-item button.complete-btn,
+.maintenance-item button.delete-btn {
+    padding: 6px 12px;
+    font-size: 0.85em;
+    margin-left: 10px;
+    min-width: 80px; /* Para botões "Concluir" e "Refazer" terem larguras parecidas */
+}
+.maintenance-item button.delete-btn {
+    background-color: #e74c3c;
+}
+.maintenance-item button.delete-btn:hover {
+    background-color: #c0392b;
+}
+body.dark-theme .maintenance-item button.delete-btn { background-color: #c0392b; }
+body.dark-theme .maintenance-item button.delete-btn:hover { background-color: #a93226; }
+
+
+/* Estilos para Previsão do Tempo, Consulta Rápida, Controles, Preferências (mantidos e ajustados conforme necessário) */
+.weather-controls { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+.location-input { display: flex; gap: 10px; }
+.location-input input[type="text"] { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em; }
+.forecast-options { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.forecast-options label { margin-right: 5px; }
+.forecast-options select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+#forecast-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-top: 20px; }
+.forecast-card { background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.forecast-card:hover { transform: translateY(-5px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+body.dark-theme .forecast-card { background-color: #4a6179; border-color: #5e7a97; }
+.forecast-card h4 { margin: 0 0 8px 0; font-size: 1.1em; color: #333; }
+body.dark-theme .forecast-card h4 { color: #ecf0f1; }
+.forecast-card img { width: 60px; height: 60px; margin-bottom: 5px; }
+.forecast-card .temp { font-size: 1.4em; font-weight: bold; margin-bottom: 5px; }
+.forecast-card .description { font-size: 0.9em; color: #555; text-transform: capitalize; }
+body.dark-theme .forecast-card .description { color: #bdc3c7; }
+.forecast-card.rainy-day { background-color: #e0f7fa; border-left: 5px solid #00bcd4; }
+body.dark-theme .forecast-card.rainy-day { background-color: #3a506b; border-left-color: #4fc3f7; }
+.forecast-card.extreme-cold { background-color: #e3f2fd; border-left: 5px solid #2196f3; }
+body.dark-theme .forecast-card.extreme-cold { background-color: #304c6b; border-left-color: #64b5f6; }
+.forecast-card.extreme-hot { background-color: #fff3e0; border-left: 5px solid #ff9800; }
+body.dark-theme .forecast-card.extreme-hot { background-color: #6b4f30; border-left-color: #ffb74d; }
+
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+.modal-content { background-color: #fefefe; margin: 15% auto; padding: 25px; border: 1px solid #888; width: 80%; max-width: 450px; border-radius: 8px; position: relative; }
+body.dark-theme .modal-content { background-color: #34495e; color: #ecf0f1; border-color: #4a6179; }
+.close-modal-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+.close-modal-btn:hover, .close-modal-btn:focus { color: black; text-decoration: none; cursor: pointer; }
+body.dark-theme .close-modal-btn { color: #bdc3c7; }
+body.dark-theme .close-modal-btn:hover, body.dark-theme .close-modal-btn:focus { color: #ecf0f1; }
+.modal-content h3 { margin-top: 0; color: #3498db; }
+body.dark-theme .modal-content h3 { color: #5dade2; }
+.modal-content p { margin-bottom: 10px; }
+
+.control { margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #eee; }
+body.dark-theme .control { border-bottom-color: #4a6179; }
+.control:last-child { border-bottom: none; }
+.control p { margin: 0; } .control span { font-weight: bold; }
+button { padding: 10px 18px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.95em; transition: background-color 0.2s ease-in-out; }
+button:hover { background-color: #2980b9; }
+#user-preferences select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 1em; }
+.error-message { color: #e74c3c; font-weight: bold; padding: 10px; background-color: #fadbd8; border: 1px solid #f1948a; border-radius: 5px; margin-top: 10px; text-align: center; }
+body.dark-theme .error-message { background-color: #5e3c3c; border-color: #c0392b; color: #f5b7b1; }
+#loading-weather, #quick-loading-weather { text-align: center; padding: 10px; color: #3498db; }
+body.dark-theme #loading-weather, body.dark-theme #quick-loading-weather { color: #5dade2; }
+footer { text-align: center; margin-top: 30px; font-size: 0.9em; color: #7f8c8d; }
+body.dark-theme footer { color: #95a5a6; }
+
+/* Responsividade */
+@media (max-width: 768px) { /* Ajuste breakpoint se necessário */
+    .vehicle-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .weather-controls { flex-direction: column; }
+    .forecast-options { flex-direction: column; align-items: stretch; }
+    .forecast-options select { width: 100%; }
+    .modal-content { margin: 10% auto; width: 90%; }
 }
 
-.appointment-card p {
-    margin: 5px 0;
-}
-
-.appointment-card strong {
-    color: var(--giga-gold);
-}
-
-.appointment-card .delete-btn {
-    background-color: var(--giga-red);
-    color: var(--giga-white);
-    border: none;
-    padding: 8px 15px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.appointment-card .delete-btn:hover {
-    background-color: #b2191f; /* Cor mais escura para o hover */
-}
-
-
-.error-message {
-    color: var(--giga-red);
-    font-weight: bold;
-}
-
-/* --- Styles for Vehicle Management Section --- */
-#vehicles-section .page-content {
-    margin-bottom: 30px;
-}
-
-#my-vehicles-list {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.vehicle-card {
-    background-color: var(--giga-dark-gray);
-    border-left: 5px solid var(--giga-gold);
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: relative; /* Para o botão de delete */
-}
-
-.vehicle-card p {
-    margin: 0;
-}
-
-.vehicle-card strong {
-    color: var(--giga-gold);
-}
-
-.vehicle-card .delete-vehicle-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: var(--giga-red);
-    color: var(--giga-white);
-    border: none;
-    padding: 5px 10px;
-    font-size: 0.7rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.vehicle-card .delete-vehicle-btn:hover {
-    background-color: #b2191f; /* Cor mais escura para o hover */
-}
-
-/* --- Styles for Maintenance History --- */
-#maintenance-history {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.maintenance-card {
-    background-color: var(--giga-dark-gray);
-    border-left: 5px solid var(--giga-gold);
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
-
-.maintenance-card p {
-    margin: 5px 0;
-}
-
-.maintenance-card strong {
-    color: var(--giga-gold);
+@media (max-width: 600px) {
+    body { padding: 10px; }
+    .app-container { padding: 15px; }
+    .vehicle-container { grid-template-columns: 1fr; } /* Um card por linha */
+    .control { flex-direction: column; align-items: flex-start; gap: 8px; }
+    button, .button-primary { width: 100%; margin-top: 10px; }
+    .location-input button { width: auto; margin-top: 0;} /* Botão de busca do tempo não ocupa 100% */
+    .maintenance-item { flex-direction: column; align-items: flex-start; gap: 10px;}
+    .maintenance-item button.complete-btn,
+    .maintenance-item button.delete-btn {
+        width: 100%;
+        margin-left: 0;
+    }
+    #forecast-container { grid-template-columns: 1fr; }
 }

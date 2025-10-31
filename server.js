@@ -4,19 +4,53 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const multer = require('multer'); // <<< ADICIONADO: Importando o multer
+const fs = require('fs'); // <<< ADICIONADO: Módulo File System para criar pastas
 
 // --- INICIALIZAÇÃO DO APP EXPRESS ---
 const app = express();
 const PORT = process.env.PORT || 3000; // A porta onde o servidor vai rodar
+
+// --- CONFIGURAÇÃO DO MULTER PARA UPLOAD DE IMAGENS --- // <<< SEÇÃO ADICIONADA
+// Define a pasta onde as imagens serão salvas
+const UPLOADS_FOLDER = path.join(__dirname, 'uploads');
+
+// Cria a pasta 'uploads' se ela não existir
+if (!fs.existsSync(UPLOADS_FOLDER)) {
+    fs.mkdirSync(UPLOADS_FOLDER);
+    console.log(`Diretório criado em: ${UPLOADS_FOLDER}`);
+}
+
+// Configuração de armazenamento do Multer
+const storage = multer.diskStorage({
+    // Destino do arquivo
+    destination: (req, file, cb) => {
+        cb(null, UPLOADS_FOLDER); // Salva os arquivos na pasta 'uploads'
+    },
+    // Nome do arquivo
+    filename: (req, file, cb) => {
+        // Garante um nome de arquivo único adicionando um timestamp
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const extension = path.extname(file.originalname);
+        cb(null, file.fieldname + '-' + uniqueSuffix + extension);
+    }
+});
+
+// Inicializa o middleware do multer com a configuração de armazenamento
+const upload = multer({ storage: storage });
+
 
 // --- MIDDLEWARE ---
 // Para o Express entender JSON vindo no corpo das requisições
 app.use(express.json());
 // Para o Express entender dados de formulários
 app.use(express.urlencoded({ extended: true }));
-// Para servir os arquivos estáticos (html, css, js, img) da pasta 'public'
-// É uma boa prática colocar seus arquivos de front-end em uma pasta como 'public'
+
+// Para servir os arquivos estáticos (html, css, js, img) da pasta raiz
+// Isso permitirá acesso a pastas como 'public', 'css', 'js', 'img'
 app.use(express.static(path.join(__dirname)));
+// <<< ADICIONADO: Servir a pasta 'uploads' para que as imagens fiquem acessíveis publicamente
+app.use('/uploads', express.static(UPLOADS_FOLDER));
 
 
 // --- CONEXÃO COM O MONGODB ---
@@ -65,10 +99,18 @@ const Agendamento = mongoose.model('Agendamento', AgendamentoSchema);
 
 // --- ROTAS PARA VEÍCULOS ---
 
-// [CREATE] Rota para criar um novo veículo
-app.post('/api/vehicles', async (req, res) => {
+// [CREATE] Rota para criar um novo veículo <<< MODIFICADO: Adicionado middleware 'upload'
+app.post('/api/vehicles', upload.single('imageUrl'), async (req, res) => {
     try {
-        const novoVeiculo = new Veiculo(req.body);
+        const vehicleData = req.body;
+
+        // <<< ADICIONADO: Se um arquivo foi enviado, atualiza o caminho da imagem
+        if (req.file) {
+            // Salva o caminho público da imagem
+            vehicleData.imageUrl = `/uploads/${req.file.filename}`;
+        }
+        
+        const novoVeiculo = new Veiculo(vehicleData);
         const veiculoSalvo = await novoVeiculo.save();
         res.status(201).json(veiculoSalvo);
     } catch (error) {
@@ -103,10 +145,17 @@ app.get('/api/vehicles/:id', async (req, res) => {
     }
 });
 
-// [UPDATE] Rota para atualizar um veículo
-app.put('/api/vehicles/:id', async (req, res) => {
+// [UPDATE] Rota para atualizar um veículo <<< MODIFICADO: Adicionado middleware 'upload'
+app.put('/api/vehicles/:id', upload.single('imageUrl'), async (req, res) => {
     try {
-        const updatedVehicle = await Veiculo.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        const updateData = req.body;
+        
+        // <<< ADICIONADO: Se uma nova imagem foi enviada, atualiza o caminho
+        if (req.file) {
+            updateData.imageUrl = `/uploads/${req.file.filename}`;
+        }
+
+        const updatedVehicle = await Veiculo.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
         if (!updatedVehicle) {
             return res.status(404).json({ message: "VEÍCULO NÃO ENCONTRADO" });
         }

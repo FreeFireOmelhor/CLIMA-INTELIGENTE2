@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayQuickWeatherError('Por favor, digite o nome de uma cidade.');
             return;
         }
-        if (API_KEY === 'SUA_CHAVE_API_AQUI') {
+        if (API_KEY === 'b4844eae6f90c04e603ddf90fe2d7485') {
             displayQuickWeatherError('Chave da API não configurada. Obtenha uma em OpenWeatherMap.');
             return;
         }
