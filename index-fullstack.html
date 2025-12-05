@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem Inteligente - Full-Stack</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            padding: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: #e7f3ff;
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .content-section {
+            padding: 40px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #FF9800;
+            color: white;
+        }
+
+        form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .vehicle-card,
+        .maintenance-card,
+        .appointment-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .vehicle-card h3,
+        .maintenance-card h4,
+        .appointment-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-card p,
+        .maintenance-card p,
+        .appointment-card p {
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        footer {
+            background: #f8f9fa;
+            border-top: 2px solid #dee2e6;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .content-section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏎️ Garagem Inteligente</h1>
+            <p>Sistema Full-Stack de Gerenciamento</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" onclick="switchSection('vehicles')">Veículos</button></li>
+                <li><button class="nav-btn" onclick="switchSection('maintenance')">Manutenções</button></li>
+                <li><button class="nav-btn" onclick="switchSection('appointments')">Agendamentos</button></li>
+                <li><button class="nav-btn" onclick="switchSection('tips')">Dicas</button></li>
+                <li><button class="nav-btn" onclick="switchSection('weather')">Clima</button></li>
+            </ul>
+        </nav>
+
+        <!-- SEÇÃO VEÍCULOS -->
+        <section id="vehicles" class="content-section active">
+            <h2 class="section-title">Meus Veículos</h2>
+            
+            <form id="vehicle-form" onsubmit="handleAddVehicle(event)">
+                <div class="form-group">
+                    <label for="vehicle-marca">Marca:</label>
+                    <input type="text" id="vehicle-marca" required placeholder="Ex: Nissan">
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-modelo">Modelo:</label>
+                    <input type="text" id="vehicle-modelo" required placeholder="Ex: Titan Warrior">
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-placa">Placa:</label>
+                    <input type="text" id="vehicle-placa" required placeholder="Ex: TITAN88" style="text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-tipo">Tipo:</label>
+                    <select id="vehicle-tipo" required>
+                        <option value="">Selecione um tipo</option>
+                        <option value="CAMINHÃO Z">Caminhão Z</option>
+                        <option value="SEDAN X">Sedan X</option>
+                        <option value="CARRO_ESPORTIVO">Carro Esportivo</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-ano">Ano:</label>
+                    <input type="number" id="vehicle-ano" required placeholder="2023">
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Veículo</button>
+            </form>
+
+            <div id="vehicle-list">
+                <div class="empty-state">
+                    <p>Nenhum veículo cadastrado</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO MANUTENÇÕES -->
+        <section id="maintenance" class="content-section">
+            <h2 class="section-title">Manutenções</h2>
+            
+            <form id="maintenance-form" onsubmit="handleAddMaintenance(event)">
+                <div class="form-group">
+                    <label for="maintenance-vehicle">Veículo:</label>
+                    <select id="maintenance-vehicle" required>
+                        <option value="">Selecione um veículo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="maintenance-data">Data:</label>
+                    <input type="date" id="maintenance-data" required>
+                </div>
+                <div class="form-group">
+                    <label for="maintenance-servicos">Serviços (separados por vírgula):</label>
+                    <textarea id="maintenance-servicos" required placeholder="Ex: Troca de Óleo, Filtro de Ar"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="maintenance-observacoes">Observações:</label>
+                    <textarea id="maintenance-observacoes" placeholder="Adicione notas"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="maintenance-custo">Custo (R$):</label>
+                    <input type="number" id="maintenance-custo" step="0.01" value="0.00">
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar Manutenção</button>
+            </form>
+
+            <div id="maintenance-list">
+                <div class="empty-state">
+                    <p>Nenhuma manutenção registrada</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO AGENDAMENTOS -->
+        <section id="appointments" class="content-section">
+            <h2 class="section-title">Agendamentos</h2>
+            
+            <form id="appointment-form" onsubmit="handleAddAppointment(event)">
+                <div class="form-group">
+                    <label for="appointment-vehicle">Veículo:</label>
+                    <select id="appointment-vehicle" required>
+                        <option value="">Selecione um veículo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointment-data">Data:</label>
+                    <input type="date" id="appointment-data" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointment-servicos">Serviços (separados por vírgula):</label>
+                    <textarea id="appointment-servicos" placeholder="Ex: Alinhamento, Balanceamento"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Agendar Serviço</button>
+            </form>
+
+            <div id="appointment-list">
+                <div class="empty-state">
+                    <p>Nenhum agendamento</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DICAS -->
+        <section id="tips" class="content-section">
+            <h2 class="section-title">Dicas de Manutenção</h2>
+            <div id="tips-list">
+                <div class="empty-state">
+                    <p>Carregando dicas...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO CLIMA -->
+        <section id="weather" class="content-section">
+            <h2 class="section-title">Previsão Climática</h2>
+            
+            <form id="weather-form" onsubmit="handleGetWeather(event)">
+                <div class="form-group">
+                    <label for="weather-city">Cidade:</label>
+                    <input type="text" id="weather-city" required placeholder="Ex: São Paulo">
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar Clima</button>
+            </form>
+
+            <div id="weather-result">
+                <div class="empty-state">
+                    <p>Digite uma cidade para ver o clima</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>🔧 Garagem Inteligente - Full-Stack MongoDB & Express | API v1.0</p>
+        </footer>
+    </div>
+
+    <script src="cliente-api.js"></script>
+    <script>
+        // ===== NAVEGAÇÃO =====
+        function switchSection(sectionId) {
+            // Ocultar todas as seções
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Mostrar seção ativa
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ===== VEÍCULOS =====
+        async function handleAddVehicle(e) {
+            e.preventDefault();
+            
+            const vehicleData = {
+                marca: document.getElementById('vehicle-marca').value,
+                modelo: document.getElementById('vehicle-modelo').value,
+                placa: document.getElementById('vehicle-placa').value.toUpperCase(),
+                tipo: document.getElementById('vehicle-tipo').value,
+                ano: parseInt(document.getElementById('vehicle-ano').value)
+            };
+
+            try {
+                await createVehicle(vehicleData);
+                document.getElementById('vehicle-form').reset();
+                renderVehiclesList();
+                populateVehicleSelects();
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+
+        async function renderVehiclesList() {
+            const container = document.getElementById('vehicle-list');
+            const vehicles = await getAllVehicles();
+
+            if (vehicles.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Nenhum veículo cadastrado</p></div>';
+                return;
+            }
+
+            container.innerHTML = vehicles.map(v => `
+                <div class="vehicle-card">
+                    <h3>${v.marca} ${v.modelo}</h3>
+                    <p><strong>Placa:</strong> ${v.placa}</p>
+                    <p><strong>Tipo:</strong> ${v.tipo}</p>
+                    <p><strong>Ano:</strong> ${v.ano}</p>
+                    <div style="margin-top: 15px;">
+                        <button onclick="deleteVehicle('${v._id}').then(() => { renderVehiclesList(); populateVehicleSelects(); })" class="btn btn-danger">Deletar</button>
+                        <button onclick="switchSection('maintenance'); document.getElementById('maintenance-vehicle').value = '${v._id}';" class="btn btn-warning">Adicionar Manutenção</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function populateVehicleSelects() {
+            const vehicles = await getAllVehicles();
+            const selects = ['maintenance-vehicle', 'appointment-vehicle'];
+            
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="">Selecione um veículo</option>';
+                vehicles.forEach(v => {
+                    select.innerHTML += `<option value="${v._id}">${v.marca} ${v.modelo} (${v.placa})</option>`;
+                });
+            });
+        }
+
+        // ===== MANUTENÇÕES =====
+        async function handleAddMaintenance(e) {
+            e.preventDefault();
+            
+            const vehicleId = document.getElementById('maintenance-vehicle').value;
+            const maintenanceData = {
+                data: document.getElementById('maintenance-data').value,
+                servicos: document.getElementById('maintenance-servicos').value.split(',').map(s => s.trim()),
+                observacoes: document.getElementById('maintenance-observacoes').value,
+                custo: parseFloat(document.getElementById('maintenance-custo').value)
+            };
+
+            try {
+                await createMaintenance(vehicleId, maintenanceData);
+                document.getElementById('maintenance-form').reset();
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+
+        // ===== AGENDAMENTOS =====
+        async function handleAddAppointment(e) {
+            e.preventDefault();
+            
+            const appointmentData = {
+                veiculo: document.getElementById('appointment-vehicle').value,
+                data: document.getElementById('appointment-data').value,
+                servicos: document.getElementById('appointment-servicos').value.split(',').map(s => s.trim()).filter(s => s)
+            };
+
+            try {
+                await createAppointment(appointmentData);
+                document.getElementById('appointment-form').reset();
+                renderAppointmentsList();
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+
+        async function renderAppointmentsList() {
+            const container = document.getElementById('appointment-list');
+            const appointments = await getAllAppointments();
+
+            if (appointments.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Nenhum agendamento</p></div>';
+                return;
+            }
+
+            container.innerHTML = appointments.map(apt => `
+                <div class="appointment-card">
+                    <h4>${apt.veiculo?.marca} ${apt.veiculo?.modelo} (${apt.veiculo?.placa})</h4>
+                    <p><strong>Data:</strong> ${new Date(apt.data).toLocaleDateString('pt-BR')}</p>
+                    <p><strong>Serviços:</strong> ${apt.servicos?.join(', ') || 'N/A'}</p>
+                    <p><strong>Status:</strong> <span style="background: #667eea; color: white; padding: 3px 8px; border-radius: 3px;">${apt.status || 'pendente'}</span></p>
+                    <button onclick="deleteAppointment('${apt._id}').then(() => renderAppointmentsList())" class="btn btn-danger">Cancelar</button>
+                </div>
+            `).join('');
+        }
+
+        // ===== DICAS =====
+        async function loadTips() {
+            const container = document.getElementById('tips-list');
+            const tips = await getMaintenanceTips();
+
+            if (tips.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Nenhuma dica disponível</p></div>';
+                return;
+            }
+
+            container.innerHTML = tips.map(tip => `
+                <div style="background: ${tip.prioridade === 'alta' ? '#ffebee' : '#f0f7ff'}; border-left: 5px solid ${tip.prioridade === 'alta' ? '#f44336' : '#2196F3'}; padding: 15px; margin-bottom: 15px; border-radius: 4px;">
+                    <p><strong>${tip.dica}</strong></p>
+                    <p style="font-size: 0.9em; color: #666;">Prioridade: <span style="background: ${tip.prioridade === 'alta' ? '#f44336' : '#FF9800'}; color: white; padding: 2px 8px; border-radius: 3px;">${tip.prioridade}</span></p>
+                </div>
+            `).join('');
+        }
+
+        // ===== CLIMA =====
+        async function handleGetWeather(e) {
+            e.preventDefault();
+            
+            const city = document.getElementById('weather-city').value;
+            const container = document.getElementById('weather-result');
+            
+            container.innerHTML = '<p>Carregando...</p>';
+
+            try {
+                const weather = await getWeather(city);
+                
+                if (!weather) {
+                    container.innerHTML = '<div class="empty-state"><p>Cidade não encontrada</p></div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 8px;">
+                        <h3>${weather.name}, ${weather.sys?.country}</h3>
+                        <p><strong>Temperatura:</strong> ${weather.main?.temp}°C</p>
+                        <p><strong>Sensação:</strong> ${weather.main?.feels_like}°C</p>
+                        <p><strong>Umidade:</strong> ${weather.main?.humidity}%</p>
+                        <p><strong>Vento:</strong> ${weather.wind?.speed} m/s</p>
+                        <p><strong>Descrição:</strong> ${weather.weather?.[0]?.description}</p>
+                    </div>
+                `;
+            } catch (error) {
+                container.innerHTML = '<div class="empty-state"><p>Erro ao buscar clima</p></div>';
+            }
+        }
+
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ Página carregada com sucesso');
+            renderVehiclesList();
+            renderAppointmentsList();
+            loadTips();
+            populateVehicleSelects();
+        });
+    </script>
+</body>
+</html>
